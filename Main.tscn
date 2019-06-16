@@ -1,0 +1,112 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://parallaxbackground.gd" type="Script" id=2]
+[ext_resource path="res://Dino.gd" type="Script" id=3]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/sprites.png-6400cb1186e3521f833030ecfd34f068.stex"
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 22, 39 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "dead"
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.00157411, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 4, 5 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_local_to_scene = true
+length = 0.5
+loop = true
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 2, 3 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "stopped"
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprites:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[node name="Main" type="Node"]
+script = ExtResource( 1 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+editor/display_folded = true
+script = ExtResource( 2 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 2400, 0 )
+
+[node name="Ground" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 1203, 706 )
+texture = SubResource( 1 )
+region_enabled = true
+region_rect = Rect2( 2, 101, 2400, 32 )
+
+[node name="Dino" type="Area2D" parent="."]
+editor/display_folded = true
+position = Vector2( 90, 90 )
+script = ExtResource( 3 )
+
+[node name="sprites" type="Sprite" parent="Dino"]
+texture = SubResource( 1 )
+hframes = 6
+region_enabled = true
+region_rect = Rect2( 1338, 2, 528, 94 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dino"]
+position = Vector2( -2, 0 )
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Dino"]
+pause_mode = 2
+anims/dead = SubResource( 3 )
+anims/run = SubResource( 4 )
+anims/stopped = SubResource( 5 )
+
+[node name="Record" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 14.0
+text = "Record: 0"
+
+[node name="Score" type="Label" parent="."]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 70.0
+margin_bottom = 25.0
+text = "Score: 0"

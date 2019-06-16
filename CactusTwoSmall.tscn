@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Cactus.gd" type="Script" id=1]
+[ext_resource path="res://sprites/sprites.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 29, 31 )
+
+[node name="CactusTwoSmall" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -33 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 480, 2, 68, 68 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1, -33 )
+shape = SubResource( 1 )
